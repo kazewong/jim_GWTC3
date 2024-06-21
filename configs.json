@@ -1,0 +1,994 @@
+{
+    "configs": {
+        "GW150914-v3": {
+            "event": "GW150914-v3",
+            "catalog": "GWTC-1-confident",
+            "gps": 1126259462.4,
+            "detectors": [
+                "H1",
+                "L1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 21.418182160215295,
+                "max": 41.97447913941358
+            }
+        },
+        "GW151012-v3": {
+            "event": "GW151012-v3",
+            "catalog": "GWTC-1-confident",
+            "gps": 1128678900.4,
+            "detectors": [
+                "H1",
+                "L1"
+            ],
+            "duration": "8",
+            "Mc_prior": {
+                "min": 11.331236548800117,
+                "max": 30.55016955177058
+            }
+        },
+        "GW151226-v2": {
+            "event": "GW151226-v2",
+            "catalog": "GWTC-1-confident",
+            "gps": 1135136350.6,
+            "detectors": [
+                "H1",
+                "L1"
+            ],
+            "duration": "16",
+            "Mc_prior": {
+                "min": 7.60927765774096,
+                "max": 11.825459113009993
+            }
+        },
+        "GW170104-v2": {
+            "event": "GW170104-v2",
+            "catalog": "GWTC-1-confident",
+            "gps": 1167559936.6,
+            "detectors": [
+                "H1",
+                "L1"
+            ],
+            "duration": "8",
+            "Mc_prior": {
+                "min": 15.909499184542135,
+                "max": 36.22456101001631
+            }
+        },
+        "GW170608-v3": {
+            "event": "GW170608-v3",
+            "catalog": "GWTC-1-confident",
+            "gps": 1180922494.5,
+            "detectors": [
+                "H1",
+                "L1"
+            ],
+            "duration": "16",
+            "Mc_prior": {
+                "min": 6.707937495408128,
+                "max": 10.335323821900465
+            }
+        },
+        "GW170729-v1": {
+            "event": "GW170729-v1",
+            "catalog": "GWTC-1-confident",
+            "gps": 1185389807.3,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 24.844280204328523,
+                "max": 85.38763058254465
+            }
+        },
+        "GW170809-v1": {
+            "event": "GW170809-v1",
+            "catalog": "GWTC-1-confident",
+            "gps": 1186302519.8,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 19.261625770194975,
+                "max": 42.847349120548664
+            }
+        },
+        "GW170814-v3": {
+            "event": "GW170814-v3",
+            "catalog": "GWTC-1-confident",
+            "gps": 1186741861.5,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 19.520822504718232,
+                "max": 36.75187106272061
+            }
+        },
+        "GW170818-v1": {
+            "event": "GW170818-v1",
+            "catalog": "GWTC-1-confident",
+            "gps": 1187058327.1,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 20.9219071736256,
+                "max": 46.49394820454115
+            }
+        },
+        "GW170823-v1": {
+            "event": "GW170823-v1",
+            "catalog": "GWTC-1-confident",
+            "gps": 1187529256.5,
+            "detectors": [
+                "H1",
+                "L1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 20.59718030104851,
+                "max": 62.67016379629611
+            }
+        },
+        "GW190408_181802-v2": {
+            "event": "GW190408_181802-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1238782700.2,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "8",
+            "Mc_prior": {
+                "min": 14.863083163414828,
+                "max": 32.67019432935788
+            }
+        },
+        "GW190413_052954-v2": {
+            "event": "GW190413_052954-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1239168612.5,
+            "detectors": [
+                "H1",
+                "L1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 27.55398668225002,
+                "max": 95.28816894743487
+            }
+        },
+        "GW190413_134308-v2": {
+            "event": "GW190413_134308-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1239198206.7,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 27.55398668225002,
+                "max": 95.28816894743487
+            }
+        },
+        "GW190421_213856-v2": {
+            "event": "GW190421_213856-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1239917954.2,
+            "detectors": [
+                "H1",
+                "L1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 22.682503712030872,
+                "max": 78.2631475773279
+            }
+        },
+        "GW190503_185404-v2": {
+            "event": "GW190503_185404-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1240944862.2,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 20.602102016451557,
+                "max": 61.927080411721896
+            }
+        },
+        "GW190512_180714-v2": {
+            "event": "GW190512_180714-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1241719652.4,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "8",
+            "Mc_prior": {
+                "min": 13.474525858040048,
+                "max": 24.828874854982434
+            }
+        },
+        "GW190513_205428-v2": {
+            "event": "GW190513_205428-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1241816086.7,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 19.48657217564383,
+                "max": 50.75986408693322
+            }
+        },
+        "GW190517_055101-v2": {
+            "event": "GW190517_055101-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1242107479.8,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 20.86334391421937,
+                "max": 55.87431108202617
+            }
+        },
+        "GW190519_153544-v2": {
+            "event": "GW190519_153544-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1242315362.3,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 36.008499230478826,
+                "max": 101.1090474503333
+            }
+        },
+        "GW190521_074359-v2": {
+            "event": "GW190521_074359-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1242459857.4,
+            "detectors": [
+                "H1",
+                "L1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 27.104198873381844,
+                "max": 52.88565825721478
+            }
+        },
+        "GW190527_092055-v2": {
+            "event": "GW190527_092055-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1242984073.7,
+            "detectors": [
+                "H1",
+                "L1"
+            ],
+            "duration": "8",
+            "Mc_prior": {
+                "min": 19.458884953501943,
+                "max": 114.87468274602905
+            }
+        },
+        "GW190602_175927-v2": {
+            "event": "GW190602_175927-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1243533585.0,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 31.248810581856844,
+                "max": 120.69883911546616
+            }
+        },
+        "GW190620_030421-v2": {
+            "event": "GW190620_030421-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1245035079.3,
+            "detectors": [
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 28.35822387353086,
+                "max": 96.06738729730228
+            }
+        },
+        "GW190630_185205-v2": {
+            "event": "GW190630_185205-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1245955943.1,
+            "detectors": [
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 20.36472548152109,
+                "max": 40.2283678835286
+            }
+        },
+        "GW190701_203306-v2": {
+            "event": "GW190701_203306-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1246048404.5,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 28.142864427599292,
+                "max": 89.19157808828976
+            }
+        },
+        "GW190706_222641-v2": {
+            "event": "GW190706_222641-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1246487219.3,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 31.552683714730097,
+                "max": 124.6568561456556
+            }
+        },
+        "GW190707_093326-v2": {
+            "event": "GW190707_093326-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1246527224.1,
+            "detectors": [
+                "H1",
+                "L1"
+            ],
+            "duration": "16",
+            "Mc_prior": {
+                "min": 7.749135771186385,
+                "max": 12.237756554005374
+            }
+        },
+        "GW190708_232457-v2": {
+            "event": "GW190708_232457-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1246663515.3,
+            "detectors": [
+                "L1",
+                "V1"
+            ],
+            "duration": "8",
+            "Mc_prior": {
+                "min": 11.367979738562507,
+                "max": 19.509885616808155
+            }
+        },
+        "GW190719_215514-v2": {
+            "event": "GW190719_215514-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1247608532.9,
+            "detectors": [
+                "H1",
+                "L1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 15.0,
+                "max": 150.0
+            }
+        },
+        "GW190720_000836-v2": {
+            "event": "GW190720_000836-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1247616534.7,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "16",
+            "Mc_prior": {
+                "min": 7.949859412895775,
+                "max": 13.115557572755312
+            }
+        },
+        "GW190725_174728-v1": {
+            "event": "GW190725_174728-v1",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1248112066.4,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "16",
+            "Mc_prior": {
+                "min": 6.616123682657234,
+                "max": 11.39748177565393
+            }
+        },
+        "GW190727_060333-v2": {
+            "event": "GW190727_060333-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1248242631.9,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 21.95560149933532,
+                "max": 73.8394719747901
+            }
+        },
+        "GW190728_064510-v2": {
+            "event": "GW190728_064510-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1248331528.5,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "16",
+            "Mc_prior": {
+                "min": 7.83981847070932,
+                "max": 12.811796079336329
+            }
+        },
+        "GW190731_140936-v2": {
+            "event": "GW190731_140936-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1248617394.6,
+            "detectors": [
+                "H1",
+                "L1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 22.34677914155712,
+                "max": 76.52080798007425
+            }
+        },
+        "GW190803_022701-v2": {
+            "event": "GW190803_022701-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1248834439.8,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 22.266367438794333,
+                "max": 73.75975716504519
+            }
+        },
+        "GW190805_211137-v1": {
+            "event": "GW190805_211137-v1",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1249074715.3,
+            "detectors": [
+                "H1",
+                "L1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 29.89014279422964,
+                "max": 100.04897902203908
+            }
+        },
+        "GW190828_063405-v2": {
+            "event": "GW190828_063405-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1251009263.7,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 22.498737037473333,
+                "max": 48.51180695324808
+            }
+        },
+        "GW190828_065509-v2": {
+            "event": "GW190828_065509-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1251010527.8,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "8",
+            "Mc_prior": {
+                "min": 12.512623825350262,
+                "max": 22.597693394792508
+            }
+        },
+        "GW190910_112807-v2": {
+            "event": "GW190910_112807-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1252150105.3,
+            "detectors": [
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 28.03393170304298,
+                "max": 65.54406292158586
+            }
+        },
+        "GW190915_235702-v2": {
+            "event": "GW190915_235702-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1252627040.6,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "8",
+            "Mc_prior": {
+                "min": 16.905416035946438,
+                "max": 48.7009890854925
+            }
+        },
+        "GW190917_114630-v1": {
+            "event": "GW190917_114630-v1",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1252756008.0,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "64",
+            "Mc_prior": {
+                "min": 3.251879627051816,
+                "max": 5.2723662431062595
+            }
+        },
+        "GW190924_021846-v2": {
+            "event": "GW190924_021846-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1253326744.8,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "32",
+            "Mc_prior": {
+                "min": 5.076593989629403,
+                "max": 7.942647336817651
+            }
+        },
+        "GW190925_232845-v1": {
+            "event": "GW190925_232845-v1",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1253489343.1,
+            "detectors": [
+                "H1",
+                "V1"
+            ],
+            "duration": "8",
+            "Mc_prior": {
+                "min": 12.101587945374774,
+                "max": 24.91904806065225
+            }
+        },
+        "GW190929_012149-v2": {
+            "event": "GW190929_012149-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1253755327.4,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 23.6385078610448,
+                "max": 104.85539754157023
+            }
+        },
+        "GW190930_133541-v2": {
+            "event": "GW190930_133541-v2",
+            "catalog": "GWTC-2.1-confident",
+            "gps": 1253885759.2,
+            "detectors": [
+                "H1",
+                "L1"
+            ],
+            "duration": "16",
+            "Mc_prior": {
+                "min": 7.130190854619269,
+                "max": 12.52226917750624
+            }
+        },
+        "GW191103_012549-v1": {
+            "event": "GW191103_012549-v1",
+            "catalog": "GWTC-3-confident",
+            "gps": 1256779567.5,
+            "detectors": [
+                "H1",
+                "L1"
+            ],
+            "duration": "16",
+            "Mc_prior": {
+                "min": 5.628459258092691,
+                "max": 11.422992347700943
+            }
+        },
+        "GW191105_143521-v1": {
+            "event": "GW191105_143521-v1",
+            "catalog": "GWTC-3-confident",
+            "gps": 1256999739.9,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "16",
+            "Mc_prior": {
+                "min": 6.682150463100204,
+                "max": 12.77892489643769
+            }
+        },
+        "GW191109_010717-v1": {
+            "event": "GW191109_010717-v1",
+            "catalog": "GWTC-3-confident",
+            "gps": 1257296855.2,
+            "detectors": [
+                "H1",
+                "L1"
+            ],
+            "duration": "4.0",
+            "Mc_prior": {
+                "min": 26.700411297080883,
+                "max": 96.67976382167427
+            }
+        },
+        "GW191127_050227-v1": {
+            "event": "GW191127_050227-v1",
+            "catalog": "GWTC-3-confident",
+            "gps": 1258866165.5,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "8",
+            "Mc_prior": {
+                "min": 13.600129603611206,
+                "max": 113.63061045223438
+            }
+        },
+        "GW191129_134029-v1": {
+            "event": "GW191129_134029-v1",
+            "catalog": "GWTC-3-confident",
+            "gps": 1259070047.1,
+            "detectors": [
+                "H1",
+                "L1"
+            ],
+            "duration": "16.0",
+            "Mc_prior": {
+                "min": 6.688783206706785,
+                "max": 10.410877892268534
+            }
+        },
+        "GW191204_171526-v1": {
+            "event": "GW191204_171526-v1",
+            "catalog": "GWTC-3-confident",
+            "gps": 1259514944.0,
+            "detectors": [
+                "H1",
+                "L1"
+            ],
+            "duration": "8",
+            "Mc_prior": {
+                "min": 9.5,
+                "max": 9.9
+            }
+        },
+        "GW191215_223052-v1": {
+            "event": "GW191215_223052-v1",
+            "catalog": "GWTC-3-confident",
+            "gps": 1260484270.3,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "8",
+            "Mc_prior": {
+                "min": 16.94428032654808,
+                "max": 34.43710414868843
+            }
+        },
+        "GW191216_213338-v1": {
+            "event": "GW191216_213338-v1",
+            "catalog": "GWTC-3-confident",
+            "gps": 1260567236.4,
+            "detectors": [
+                "H1",
+                "V1"
+            ],
+            "duration": "16.0",
+            "Mc_prior": {
+                "min": 7.048878803987127,
+                "max": 10.952122382061372
+            }
+        },
+        "GW191222_033537-v1": {
+            "event": "GW191222_033537-v1",
+            "catalog": "GWTC-3-confident",
+            "gps": 1261020955.1,
+            "detectors": [
+                "H1",
+                "L1"
+            ],
+            "duration": "8.0",
+            "Mc_prior": {
+                "min": 29.12121468376327,
+                "max": 82.83341571932267
+            }
+        },
+        "GW191230_180458-v1": {
+            "event": "GW191230_180458-v1",
+            "catalog": "GWTC-3-confident",
+            "gps": 1261764316.4,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 22.878092866136683,
+                "max": 106.360455609721
+            }
+        },
+        "GW200112_155838-v1": {
+            "event": "GW200112_155838-v1",
+            "catalog": "GWTC-3-confident",
+            "gps": 1262879936.0,
+            "detectors": [
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 21.275516633130586,
+                "max": 49.397749135513735
+            }
+        },
+        "GW200128_022011-v1": {
+            "event": "GW200128_022011-v1",
+            "catalog": "GWTC-3-confident",
+            "gps": 1264213229.9,
+            "detectors": [
+                "H1",
+                "L1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 28.764573110119496,
+                "max": 73.45005135302321
+            }
+        },
+        "GW200129_065458-v1": {
+            "event": "GW200129_065458-v1",
+            "catalog": "GWTC-3-confident",
+            "gps": 1264316116.4,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "8",
+            "Mc_prior": {
+                "min": 14.479086293443372,
+                "max": 48.938452445677996
+            }
+        },
+        "GW200202_154313-v1": {
+            "event": "GW200202_154313-v1",
+            "catalog": "GWTC-3-confident",
+            "gps": 1264693411.5,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "16",
+            "Mc_prior": {
+                "min": 6.41333519932373,
+                "max": 9.997476415577319
+            }
+        },
+        "GW200208_130117-v1": {
+            "event": "GW200208_130117-v1",
+            "catalog": "GWTC-3-confident",
+            "gps": 1265202095.9,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 22.99617281811461,
+                "max": 53.997506948935175
+            }
+        },
+        "GW200209_085452-v1": {
+            "event": "GW200209_085452-v1",
+            "catalog": "GWTC-3-confident",
+            "gps": 1265273710.1,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 21.22754654990711,
+                "max": 90.60889574732884
+            }
+        },
+        "GW200216_220804-v1": {
+            "event": "GW200216_220804-v1",
+            "catalog": "GWTC-3-confident",
+            "gps": 1265926102.8,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 20.19985707943376,
+                "max": 97.32234878493873
+            }
+        },
+        "GW200219_094415-v1": {
+            "event": "GW200219_094415-v1",
+            "catalog": "GWTC-3-confident",
+            "gps": 1266140673.1,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 22.394536508503787,
+                "max": 66.56421024212413
+            }
+        },
+        "GW200224_222234-v1": {
+            "event": "GW200224_222234-v1",
+            "catalog": "GWTC-3-confident",
+            "gps": 1266618172.4,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 22.852486906183355,
+                "max": 57.65416902042432
+            }
+        },
+        "GW200225_060421-v1": {
+            "event": "GW200225_060421-v1",
+            "catalog": "GWTC-3-confident",
+            "gps": 1266645879.3,
+            "detectors": [
+                "H1",
+                "L1"
+            ],
+            "duration": "8",
+            "Mc_prior": {
+                "min": 12.202603440756729,
+                "max": 23.337900557388274
+            }
+        },
+        "GW200302_015811-v1": {
+            "event": "GW200302_015811-v1",
+            "catalog": "GWTC-3-confident",
+            "gps": 1267149509.5,
+            "detectors": [
+                "H1",
+                "V1"
+            ],
+            "duration": "8",
+            "Mc_prior": {
+                "min": 17.303273560355105,
+                "max": 53.149027924375204
+            }
+        },
+        "GW200311_115853-v1": {
+            "event": "GW200311_115853-v1",
+            "catalog": "GWTC-3-confident",
+            "gps": 1267963151.3,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "4",
+            "Mc_prior": {
+                "min": 21.221416446599836,
+                "max": 47.43075093552323
+            }
+        },
+        "GW200316_215756-v1": {
+            "event": "GW200316_215756-v1",
+            "catalog": "GWTC-3-confident",
+            "gps": 1268431094.1,
+            "detectors": [
+                "H1",
+                "L1",
+                "V1"
+            ],
+            "duration": "16.0",
+            "Mc_prior": {
+                "min": 7.8885367345513835,
+                "max": 13.962428305860232
+            }
+        }
+    }
+}
