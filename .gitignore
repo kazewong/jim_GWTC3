@@ -2,3 +2,6 @@
 outdir/
 *.ipynb_checkpoints/
 __pycache__/
+slurm_scripts/
+logs/
+*.lock
