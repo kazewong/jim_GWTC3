@@ -14,6 +14,16 @@ gw_ids=$(awk -F, 'NR>1 {print $1}' $csv_file)
 # Loop over each GW event ID
 for gw_id in $gw_ids
 do
+  # Define the result directory path
+  result_dir="/home/user/ckng/project/jim_GWTC3/jim_runs/outdir/${gw_id}"
+  
+  # Check if the result directory contains any files
+  if [ -d "$result_dir" ] && [ "$(find "$result_dir" -type f | wc -l)" -gt 0 ]; then
+    echo "Result already exists for $gw_id, skipping submission."
+    sleep 0.5
+    continue
+  fi
+  
   # Create a unique SLURM script for each GW event
   new_script="slurm_scripts/submit_${gw_id}.sh"
   cp $template_file $new_script

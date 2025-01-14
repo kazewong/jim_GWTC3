@@ -56,8 +56,8 @@ def run_pe(args: argparse.Namespace,
     print(f"Fetching bilby_pipe DataDump for event {args.event_id}")
     with open("../bilby_runs/outdir/{}/data/{}_data_dump.pickle".format(args.event_id, args.event_id), "rb") as f:
         data_dump = pickle.load(f)
-    Mc_lower = data_dump.priors_dict['chirp_mass'].minimum
-    Mc_upper = data_dump.priors_dict['chirp_mass'].maximum
+    Mc_lower = float(data_dump.priors_dict['chirp_mass'].minimum)
+    Mc_upper = float(data_dump.priors_dict['chirp_mass'].maximum)
     
     print(f"Setting the Mc bounds to be {Mc_lower} and {Mc_upper}")
     
@@ -75,8 +75,14 @@ def run_pe(args: argparse.Namespace,
     fmin: dict[str, float] = data_dump.meta_data['command_line_args']['minimum_frequency']
     fmax: dict[str, float] = data_dump.meta_data['command_line_args']['maximum_frequency']
     
-    fmin = np.min(list(ast.literal_eval(fmin).values()))
-    fmax = np.min(list(ast.literal_eval(fmax).values()))
+    try:
+        fmin = float(np.min(list(ast.literal_eval(fmin).values())))
+    except AttributeError:
+        fmin = float(fmin)
+    try:
+        fmax = float(np.min(list(ast.literal_eval(fmax).values())))
+    except AttributeError:
+        fmax = float(fmax)
     
     fmin = max(fmin, 20.0)
     fmax = min(fmax, 2048.0)
