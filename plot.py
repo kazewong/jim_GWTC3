@@ -37,7 +37,7 @@ for event in events:
 
         fig = corner(samples_jim, labels=keys, color='blue', hist_kwargs={'density': True})
         corner(samples_bilby, labels=keys, fig=fig, color='red', hist_kwargs={'density': True})
-        plt.savefig(f'figures/{event}.pdf')
+        plt.savefig(f'figures/{event}.jpg')
         plt.close()
     except Exception as e:
         print(f'Error: {e}')
