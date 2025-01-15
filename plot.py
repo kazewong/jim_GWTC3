@@ -16,7 +16,7 @@ for event in events:
         result_jim = jnp.load(f'/home/user/ckng/project/jim_GWTC3/jim_runs/outdir/{event}/samples.npz')
         n_samples = 5000
 
-        keys = ['M_c', 'd_L', 'dec', 'iota', 'phase_c', 'psi', 'q', 'ra']
+        keys = ['M_c', 'q', 'd_L', 'iota', 'ra', 'dec', 'psi', 'phase_c']
 
         samples_jim = []
         for key in keys:
@@ -37,8 +37,9 @@ for event in events:
 
         fig = corner(samples_jim, labels=keys, color='blue', hist_kwargs={'density': True})
         corner(samples_bilby, labels=keys, fig=fig, color='red', hist_kwargs={'density': True})
-        plt.savefig(f'figures/{event}.jpg')
-        plt.close()
+        fig.savefig(f'figures/{event}.jpg')
+        fig.savefig(f'figures/{event}.pdf')
+        plt.close(fig)
     except Exception as e:
         print(f'Error: {e}')
         continue
