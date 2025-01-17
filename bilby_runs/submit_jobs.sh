@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Read the event IDs from the CSV file
-csv_file="/home/thomas.ng/project/jim_GWTC3/bilby_runs/event_status.csv"
+csv_file="/home/thomas.ng/project/jim_GWTC3/jim_runs/event_status.csv"
 gw_ids=$(awk -F, 'NR>1 {print $1}' $csv_file)
 
 # Loop over each GW event ID
@@ -17,12 +17,6 @@ do
     continue
   fi
 
-  # Update the status to "submitted" in the CSV file using flock
-  {
-    flock -x 200
-    sed -i "/^$gw_id,/s/,.*/,$gw_id,submitted,/" $csv_file
-  } 200>$csv_file.lock
-  
   # Submit the job and wait for it to finish
   bilby_pipe /home/thomas.ng/project/jim_GWTC3/bilby_runs/config/${gw_id}_config.ini --submit
   wait
