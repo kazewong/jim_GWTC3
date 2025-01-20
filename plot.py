@@ -50,9 +50,10 @@ for event in events:
         fig = corner(samples_jim, labels=keys, color='blue', hist_kwargs={'density': True})
         corner(samples_bilby, labels=keys, fig=fig, color='red', hist_kwargs={'density': True})
 
-        # add legend in the empty corner using the legend function with large font size
         fig.legend(['jim', 'bilby'], loc='right', fontsize=20)
 
+        if not os.path.exists(f'figures/{event}.jpg'):
+            print(f'New event: {event}')
         fig.savefig(f'figures/{event}.jpg')
         fig.savefig(f'figures/{event}.pdf')
         plt.close(fig)
