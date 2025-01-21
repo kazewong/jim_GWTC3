@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Activate the conda environment
+conda activate /home/sylvia.biscoveanu/.conda/envs/bilby_o4review_230314/
+
 # Read the event IDs from the CSV file
 csv_file="/home/thomas.ng/project/jim_GWTC3/event_status.csv"
 gw_ids=$(awk -F, 'NR>1 {print $1}' $csv_file)
@@ -22,4 +25,7 @@ do
   wait
   
   echo "Submitted job for $gw_id"
+
+  # Deactivate the conda environment
+  conda deactivate
 done
