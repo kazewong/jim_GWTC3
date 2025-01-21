@@ -56,6 +56,9 @@ for event in events:
             fig.savefig(f'figures/{event}.jpg')
             fig.savefig(f'figures/{event}.pdf')
             plt.close(fig)
+
+            csv.loc[csv['Event'] == event, 'Comparison'] = 'good'
+            csv.to_csv('event_status.csv', index=False)
     except Exception as e:
         print(f'Error: {e}')
         continue
