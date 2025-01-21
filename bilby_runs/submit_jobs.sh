@@ -25,7 +25,7 @@ do
   wait
   
   echo "Submitted job for $gw_id"
-
-  # Deactivate the conda environment
-  conda deactivate
 done
+
+# Deactivate the conda environment
+conda deactivate
