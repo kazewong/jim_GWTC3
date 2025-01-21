@@ -262,7 +262,7 @@ def run_pe(args: argparse.Namespace,
         # strategies=[Adam_optimizer,"default"],
     )
 
-    jim.sample(jax.random.PRNGKey(42))
+    jim.sample(jax.random.PRNGKey(12345))
     jim.print_summary()
     
     # Postprocessing comes here

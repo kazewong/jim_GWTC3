@@ -8,7 +8,7 @@ mkdir -p slurm_scripts
 mkdir -p logs
 
 # Read the event IDs from the CSV file
-csv_file="/home/user/ckng/project/jim_GWTC3/jim_runs/event_status.csv"
+csv_file="/home/user/ckng/project/jim_GWTC3/event_status.csv"
 gw_ids=$(awk -F, 'NR>1 {print $1}' $csv_file)
 
 # Loop over each GW event ID
@@ -30,13 +30,7 @@ do
   
   # Replace the placeholder with the actual GW_ID
   sed -i "s/{{{GW_ID}}}/$gw_id/g" $new_script
-  
-  # Update the status to "submitted" in the CSV file using flock
-  {
-    flock -x 200
-    sed -i "/^$gw_id,/s/,.*/,$gw_id,submitted,/" $csv_file
-  } 200>$csv_file.lock
-  
+
   # Make the script executable
   chmod +x $new_script
   

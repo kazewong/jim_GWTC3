@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Read the event IDs from the CSV file
-csv_file="/home/thomas.ng/project/jim_GWTC3/jim_runs/event_status.csv"
+csv_file="/home/thomas.ng/project/jim_GWTC3/event_status.csv"
 gw_ids=$(awk -F, 'NR>1 {print $1}' $csv_file)
 
 # Loop over each GW event ID

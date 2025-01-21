@@ -8,7 +8,7 @@ from bilby.gw.result import CBCResult
 import pandas as pd
 
 outdir = 'bilby_runs/outdir'
-csv = pd.read_csv('jim_runs/event_status.csv')
+csv = pd.read_csv('event_status.csv')
 events = csv['Event'].values
 
 for event in events:
