@@ -69,9 +69,8 @@ def run_pe(args: argparse.Namespace,
         print(data_dump.meta_data)
     
     duration = float(data_dump.meta_data['command_line_args']['duration'])
-    post_trigger = 2
+    post_trigger = data_dump.meta_data['command_line_args']['post_trigger_duration']
     gps = data_dump.trigger_time
-    trigger_time = gps
     fmin: dict[str, float] = data_dump.meta_data['command_line_args']['minimum_frequency']
     fmax: dict[str, float] = data_dump.meta_data['command_line_args']['maximum_frequency']
     
@@ -213,7 +212,7 @@ def run_pe(args: argparse.Namespace,
     likelihood = HeterodynedTransientLikelihoodFD(ifos, 
                                                   waveform=waveform, 
                                                   n_bins = 1_000, 
-                                                  trigger_time=trigger_time, 
+                                                  trigger_time=gps, 
                                                   duration=duration, 
                                                   post_trigger_duration=post_trigger, 
                                                   prior=prior, 
