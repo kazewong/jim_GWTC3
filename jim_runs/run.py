@@ -34,8 +34,8 @@ from jimgw.single_event.transforms import (
     GeocentricArrivalTimeToDetectorArrivalTimeTransform,
     GeocentricArrivalPhaseToDetectorArrivalPhaseTransform,
 )
-from jimgw.single_event.utils import Mc_q_to_m1_m2
-from flowMC.strategy.optimization import optimization_Adam
+# from jimgw.single_event.utils import Mc_q_to_m1_m2
+# from flowMC.strategy.optimization import optimization_Adam
 
 jax.config.update("jax_enable_x64", True)
 
@@ -45,7 +45,7 @@ def run_pe(args: argparse.Namespace,
            verbose: bool = False):
     
     total_time_start = time.time()
-    print("args")
+    print("args:")
     print(args)
     
     # Make the outdir
@@ -54,23 +54,24 @@ def run_pe(args: argparse.Namespace,
         
     # Fetch bilby_pipe DataDump
     print(f"Fetching bilby_pipe DataDump for event {args.event_id}")
-    with open("../bilby_runs/outdir/{}/data/{}_data_dump.pickle".format(args.event_id, args.event_id), "rb") as f:
+    file = os.listdir("../bilby_runs/outdir/{}/data".format(args.event_id))[0]
+    with open(f"../bilby_runs/outdir/{args.event_id}/data/{file}", "rb") as f:
         data_dump = pickle.load(f)
     Mc_lower = float(data_dump.priors_dict['chirp_mass'].minimum)
     Mc_upper = float(data_dump.priors_dict['chirp_mass'].maximum)
     
     print(f"Setting the Mc bounds to be {Mc_lower} and {Mc_upper}")
     
-    dL_upper = data_dump.priors_dict['luminosity_distance'].maximum
+    dL_upper = float(data_dump.priors_dict['luminosity_distance'].maximum)
     print(f"The dL upper bound is {dL_upper}")
     
     if verbose:
-        print("metadata")
+        print("metadata:")
         print(data_dump.meta_data)
     
     duration = float(data_dump.meta_data['command_line_args']['duration'])
-    post_trigger = data_dump.meta_data['command_line_args']['post_trigger_duration']
-    gps = data_dump.trigger_time
+    post_trigger = float(data_dump.meta_data['command_line_args']['post_trigger_duration'])
+    gps = float(data_dump.trigger_time)
     fmin: dict[str, float] = data_dump.meta_data['command_line_args']['minimum_frequency']
     fmax: dict[str, float] = data_dump.meta_data['command_line_args']['maximum_frequency']
     
@@ -83,16 +84,13 @@ def run_pe(args: argparse.Namespace,
     except AttributeError:
         fmax = float(fmax)
     
-    fmin = max(fmin, 20.0)
-    fmax = min(fmax, 2048.0)
-    
     ifos_list_string = data_dump.interferometers.meta_data.keys()
     
     if verbose:
-        print("fmin")
+        print("fmin:")
         print(fmin)
         
-        print("fmax")
+        print("fmax:")
         print(fmax)
     
     # Load the HDF5 files from the ifos dict url and open it:
@@ -132,7 +130,7 @@ def run_pe(args: argparse.Namespace,
         print(f"GPS: {gps}")
         print(f"Chirp mass: [{Mc_lower}, {Mc_upper}]")
     
-    waveform = RippleIMRPhenomPv2(f_ref=20)
+    waveform = RippleIMRPhenomPv2(f_ref=float(data_dump.meta_data['command_line_args']['reference_frequency']))
 
     ###########################################
     ########## Set up priors ##################
