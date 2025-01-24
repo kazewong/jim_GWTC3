@@ -220,13 +220,13 @@ def run_pe(args: argparse.Namespace,
 
 
     mass_matrix = jnp.eye(prior.n_dim)
-    local_sampler_arg = {"step_size": mass_matrix * 5e-3}
+    local_sampler_arg = {"step_size": mass_matrix * 3e-3}
 
     # Adam_optimizer = optimization_Adam(n_steps=3000, learning_rate=0.01, noise_level=1)
 
     import optax
 
-    n_loop_training = 50
+    n_loop_training = 100
     n_epochs = 10
     total_epochs = n_epochs * n_loop_training
     start = total_epochs // 10
