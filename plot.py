@@ -17,7 +17,7 @@ for event in events:
             result_jim = jnp.load(f'jim_runs/outdir/{event}/samples.npz')
             n_samples = 5000
 
-            keys = ['M_c', 'q', 'd_L', 'iota', 'ra', 'dec', 'psi', 'phase_c', 's1_mag', 's2_mag']
+            keys = ['M_c', 'q', 'd_L', 'iota', 'ra', 'dec', 't_c', 'psi', 'phase_c', 's1_mag', 's2_mag']
 
             samples_jim = []
             for key in keys:
@@ -32,7 +32,10 @@ for event in events:
             else:
                 print(f'Plotting {event}')
                 file = files[0]
-            result_bilby = CBCResult.from_hdf5(f'{outdir}/{event}/final_result/{file}').posterior
+            result_bilby = CBCResult.from_hdf5(f'{outdir}/{event}/final_result/{file}')
+            trigger_time = float(result_bilby.meta_data['command_line_args']['trigger_time'])
+            result_bilby = result_bilby.posterior
+            result_bilby['geocent_time'] -= trigger_time
             if len(result_bilby) > n_samples:
                 result_bilby = result_bilby.sample(n_samples)
             else:
@@ -42,6 +45,7 @@ for event in events:
                 key = key.replace('M_c', 'chirp_mass')
                 key = key.replace('q', 'mass_ratio')
                 key = key.replace('d_L', 'luminosity_distance')
+                key = key.replace('t_c', 'geocent_time')
                 key = key.replace('phase_c', 'phase')
                 key = key.replace('s1_mag', 'a_1')
                 key = key.replace('s2_mag', 'a_2')
