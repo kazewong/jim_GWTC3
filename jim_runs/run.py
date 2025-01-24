@@ -13,7 +13,6 @@ print("Importing JAX successful")
 print(f"Checking for CUDA: JAX devices {jax.devices()}")
 
 from jimgw.jim import Jim
-from jimgw.jim import Jim
 from jimgw.prior import (
     CombinePrior,
     UniformPrior,
@@ -221,7 +220,7 @@ def run_pe(args: argparse.Namespace,
 
 
     mass_matrix = jnp.eye(prior.n_dim)
-    local_sampler_arg = {"step_size": mass_matrix * 1e-3}
+    local_sampler_arg = {"step_size": mass_matrix * 1e-2}
 
     # Adam_optimizer = optimization_Adam(n_steps=3000, learning_rate=0.01, noise_level=1)
 
