@@ -314,7 +314,7 @@ def run_pe(args: argparse.Namespace,
     plt.tight_layout()
     plt.savefig(f"{args.outdir}/{args.event_id}/training.jpg")
 
-    labels = ["x1x1x_1", "x2x2x_2", "x3x3x_3", "x4x4x_4", "x5x5x_5"]
+    labels = jim.prior.parameter_names
     # Plot all chains
     n_dim = chains.shape[-1]
     figure = corner.corner(chains.reshape(-1, n_dim), labels=labels)
