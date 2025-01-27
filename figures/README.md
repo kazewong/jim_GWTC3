@@ -8,6 +8,7 @@ The figures are generated for the following parameters:
 - inclination
 - right ascension
 - declination
+- geocentric time
 - polarization angle
 - phase
 - spin magnitudes
