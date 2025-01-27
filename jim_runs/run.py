@@ -294,8 +294,8 @@ def run_pe(args: argparse.Namespace,
 
     plt.plot(chains[0, :, 0], chains[0, :, 1], "o-", alpha=0.5, ms=2)
     plt.plot(chains[1, :, 0], chains[1, :, 1], "o-", alpha=0.5, ms=2)
-    plt.xlabel("x1x1x_1")
-    plt.ylabel("x2x2x_2")
+    plt.xlabel(jim.prior.parameter_names[0])
+    plt.ylabel(jim.prior.parameter_names[1])
 
     plt.sca(axs[1])
     plt.title("NF loss")
