@@ -177,10 +177,10 @@ def run_pe(args: argparse.Namespace,
     # Defining Transforms
 
     sample_transforms = [
-        DistanceToSNRWeightedDistanceTransform(gps_time=gps, ifos=ifos, dL_min=dL_prior.xmin, dL_max=dL_prior.xmax),
-        GeocentricArrivalPhaseToDetectorArrivalPhaseTransform(gps_time=gps, ifo=ifos[0]),
-        GeocentricArrivalTimeToDetectorArrivalTimeTransform(tc_min=t_c_prior.xmin, tc_max=t_c_prior.xmax, gps_time=gps, ifo=ifos[0]),
-        SkyFrameToDetectorFrameSkyPositionTransform(gps_time=gps, ifos=ifos),
+        # DistanceToSNRWeightedDistanceTransform(gps_time=gps, ifos=ifos, dL_min=dL_prior.xmin, dL_max=dL_prior.xmax),
+        # GeocentricArrivalPhaseToDetectorArrivalPhaseTransform(gps_time=gps, ifo=ifos[0]),
+        # GeocentricArrivalTimeToDetectorArrivalTimeTransform(tc_min=t_c_prior.xmin, tc_max=t_c_prior.xmax, gps_time=gps, ifo=ifos[0]),
+        # SkyFrameToDetectorFrameSkyPositionTransform(gps_time=gps, ifos=ifos),
         BoundToUnbound(name_mapping = (["M_c"], ["M_c_unbounded"]), original_lower_bound=Mc_lower, original_upper_bound=Mc_upper),
         BoundToUnbound(name_mapping = (["q"], ["q_unbounded"]), original_lower_bound=q_min, original_upper_bound=q_max),
         BoundToUnbound(name_mapping = (["s1_phi"], ["s1_phi_unbounded"]) , original_lower_bound=0.0, original_upper_bound=2 * jnp.pi),
@@ -190,10 +190,15 @@ def run_pe(args: argparse.Namespace,
         BoundToUnbound(name_mapping = (["s2_theta"], ["s2_theta_unbounded"]) , original_lower_bound=0.0, original_upper_bound=jnp.pi),
         BoundToUnbound(name_mapping = (["s1_mag"], ["s1_mag_unbounded"]) , original_lower_bound=0.0, original_upper_bound=0.99),
         BoundToUnbound(name_mapping = (["s2_mag"], ["s2_mag_unbounded"]) , original_lower_bound=0.0, original_upper_bound=0.99),
-        BoundToUnbound(name_mapping = (["phase_det"], ["phase_det_unbounded"]), original_lower_bound=0.0, original_upper_bound=2 * jnp.pi),
         BoundToUnbound(name_mapping = (["psi"], ["psi_unbounded"]), original_lower_bound=0.0, original_upper_bound=jnp.pi),
-        BoundToUnbound(name_mapping = (["zenith"], ["zenith_unbounded"]), original_lower_bound=0.0, original_upper_bound=jnp.pi),
-        BoundToUnbound(name_mapping = (["azimuth"], ["azimuth_unbounded"]), original_lower_bound=0.0, original_upper_bound=2 * jnp.pi),
+        # BoundToUnbound(name_mapping = (["phase_det"], ["phase_det_unbounded"]), original_lower_bound=0.0, original_upper_bound=2 * jnp.pi),
+        # BoundToUnbound(name_mapping = (["zenith"], ["zenith_unbounded"]), original_lower_bound=0.0, original_upper_bound=jnp.pi),
+        # BoundToUnbound(name_mapping = (["azimuth"], ["azimuth_unbounded"]), original_lower_bound=0.0, original_upper_bound=2 * jnp.pi),
+        BoundToUnbound(name_mapping = (["phase_c"], ["phase_c_unbounded"]), original_lower_bound=0.0, original_upper_bound=2 * jnp.pi),
+        BoundToUnbound(name_mapping = (["ra"], ["ra_unbounded"]), original_lower_bound=0.0, original_upper_bound=2 * jnp.pi),
+        BoundToUnbound(name_mapping = (["dec"], ["dec_unbounded"]), original_lower_bound=-jnp.pi / 2, original_upper_bound=jnp.pi / 2),
+        BoundToUnbound(name_mapping = (["d_L"], ["d_L_unbounded"]), original_lower_bound=1.0, original_upper_bound=dL_upper),
+        BoundToUnbound(name_mapping = (["t_c"], ["t_c_unbounded"]), original_lower_bound=-0.1, original_upper_bound=0.1),
     ]
 
     likelihood_transforms = [
@@ -258,7 +263,8 @@ def run_pe(args: argparse.Namespace,
         # strategies=[Adam_optimizer,"default"],
     )
 
-    jim.sample(jax.random.PRNGKey(12345))
+    rng_key = jax.random.PRNGKey(12345)
+    jim.sample(rng_key)
     jim.print_summary()
     
     # Postprocessing comes here
@@ -267,6 +273,60 @@ def run_pe(args: argparse.Namespace,
 
     total_time_end = time.time()
     print(f"Time taken: {total_time_end - total_time_start} seconds = {(total_time_end - total_time_start) / 60} minutes")
+
+    out_train = jim.sampler.get_sampler_state(training=True)
+
+    import corner
+    import matplotlib.pyplot as plt
+
+    chains = np.array(out_train["chains"])
+    global_accs = np.array(out_train["global_accs"])
+    local_accs = np.array(out_train["local_accs"])
+    loss_vals = np.array(out_train["loss_vals"])
+    rng_key, subkey = jax.random.split(rng_key)
+    nf_samples = np.array(jim.sampler.sample_flow(subkey, 3000))
+
+    # Plot 2 chains in the plane of 2 coordinates for first visual check
+    plt.figure(figsize=(6, 6))
+    axs = [plt.subplot(2, 2, i + 1) for i in range(4)]
+    plt.sca(axs[0])
+    plt.title("2d proj of 2 chains")
+
+    plt.plot(chains[0, :, 0], chains[0, :, 1], "o-", alpha=0.5, ms=2)
+    plt.plot(chains[1, :, 0], chains[1, :, 1], "o-", alpha=0.5, ms=2)
+    plt.xlabel("x1x1x_1")
+    plt.ylabel("x2x2x_2")
+
+    plt.sca(axs[1])
+    plt.title("NF loss")
+    plt.plot(loss_vals.reshape(-1))
+    plt.xlabel("iteration")
+
+    plt.sca(axs[2])
+    plt.title("Local Acceptance")
+    plt.plot(local_accs.mean(0))
+    plt.xlabel("iteration")
+
+    plt.sca(axs[3])
+    plt.title("Global Acceptance")
+    plt.plot(global_accs.mean(0))
+    plt.xlabel("iteration")
+    plt.tight_layout()
+    plt.savefig(f"{args.outdir}/{args.event_id}/training.jpg")
+
+    labels = ["x1x1x_1", "x2x2x_2", "x3x3x_3", "x4x4x_4", "x5x5x_5"]
+    # Plot all chains
+    n_dim = chains.shape[-1]
+    figure = corner.corner(chains.reshape(-1, n_dim), labels=labels)
+    figure.set_size_inches(7, 7)
+    figure.suptitle("Visualize samples")
+    plt.savefig(f"{args.outdir}/{args.event_id}/chains_training.jpg")
+
+    # Plot Nf samples
+    figure = corner.corner(nf_samples, labels=labels)
+    figure.set_size_inches(7, 7)
+    figure.suptitle("Visualize NF samples")
+    plt.savefig(f"{args.outdir}/{args.event_id}/nf_samples.jpg")
 
 def main():
     parser = utils.get_parser()
