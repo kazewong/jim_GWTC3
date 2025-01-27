@@ -282,7 +282,6 @@ def run_pe(args: argparse.Namespace,
     nf_samples = np.array(jim.sampler.sample_flow(subkey, 3000))
 
     # Plot 2 chains in the plane of 2 coordinates for first visual check
-    plt.figure(figsize=(6, 6))
     axs = [plt.subplot(2, 2, i + 1) for i in range(4)]
     plt.sca(axs[0])
     plt.title("2d proj of 2 chains")
@@ -313,13 +312,11 @@ def run_pe(args: argparse.Namespace,
     # Plot all chains
     n_dim = chains.shape[-1]
     figure = corner.corner(chains.reshape(-1, n_dim), labels=labels)
-    figure.set_size_inches(7, 7)
     figure.suptitle("Visualize samples")
     plt.savefig(f"{args.outdir}/{args.event_id}/chains_training.jpg")
 
     # Plot Nf samples
     figure = corner.corner(nf_samples, labels=labels)
-    figure.set_size_inches(7, 7)
     figure.suptitle("Visualize NF samples")
     plt.savefig(f"{args.outdir}/{args.event_id}/nf_samples.jpg")
 
