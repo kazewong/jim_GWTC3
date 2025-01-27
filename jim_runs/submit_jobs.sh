@@ -20,7 +20,6 @@ do
   # Check if the result directory contains any files
   if [ -d "$result_dir" ] && [ "$(find "$result_dir" -type f | wc -l)" -gt 0 ]; then
     echo "Result already exists for $gw_id, skipping submission."
-    sleep 0.5
     continue
   fi
   
@@ -38,7 +37,4 @@ do
   sbatch $new_script
   
   echo "Submitted job for $gw_id"
-  
-  # Add a short delay between submissions
-  sleep 0.5
 done
