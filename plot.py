@@ -58,7 +58,6 @@ for event in events:
             fig.legend(['jim', 'bilby'], loc='right', fontsize=20)
 
             fig.savefig(f'figures/{event}.jpg')
-            fig.savefig(f'figures/{event}.pdf')
             plt.close(fig)
 
             csv.loc[csv['Event'] == event, 'Comparison'] = 'good'
