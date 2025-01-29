@@ -288,8 +288,8 @@ def run_pe(args: argparse.Namespace,
 
     plt.plot(chains[0, :, 0], chains[0, :, 1], "o-", alpha=0.5, ms=2)
     plt.plot(chains[1, :, 0], chains[1, :, 1], "o-", alpha=0.5, ms=2)
-    plt.xlabel(jim.prior.parameter_names[0])
-    plt.ylabel(jim.prior.parameter_names[1])
+    plt.xlabel("$x_0$")
+    plt.ylabel("$x_1$")
 
     plt.sca(axs[1])
     plt.title("NF loss")
@@ -311,7 +311,9 @@ def run_pe(args: argparse.Namespace,
     labels = jim.prior.parameter_names
     # Plot all chains
     n_dim = chains.shape[-1]
-    figure = corner.corner(chains.reshape(-1, n_dim), labels=labels)
+    chains_downsample = chains.reshape(-1, n_dim)
+    chains_downsample = chains_downsample[::5]
+    figure = corner.corner(chains_downsample, labels=labels)
     figure.suptitle("Visualize samples")
     plt.savefig(f"{args.outdir}/{args.event_id}/chains_training.jpg")
 
