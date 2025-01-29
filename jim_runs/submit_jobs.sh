@@ -50,20 +50,23 @@ do
   chmod +x $new_script
 
   if [ "$USE_NODE_PREFERENCE" = true ]; then
-    # Find available a or c node
-    AVAILABLE_NODE=$(sinfo -h -t idle -o "%n" | grep -E '^(a|c)' | head -n1)
+    # First try to find available c node
+    AVAILABLE_NODE=$(sinfo -h -t idle -o "%n" | grep '^c' | head -n1)
     
-    # Submit the job to SLURM with node preference
+    # If no c node, try to find available a node
+    if [ -z "$AVAILABLE_NODE" ]; then
+      AVAILABLE_NODE=$(sinfo -h -t idle -o "%n" | grep '^a' | head -n1)
+    fi
+    
+    # Submit the job to SLURM only if preferred node is available
     if [ -n "$AVAILABLE_NODE" ]; then
       sbatch --nodelist=$AVAILABLE_NODE $new_script
       echo "Submitted job for $gw_id on node $AVAILABLE_NODE"
+      # Wait for 5 seconds before submitting the next job
+      sleep 5
     else
-      sbatch $new_script
-      echo "Submitted job for $gw_id on any available node (no a/c nodes available)"
+      echo "Skipping job for $gw_id - no a or c nodes available"
     fi
-
-    # Wait for 5 seconds before submitting the next job
-    sleep 5
   else
     # Submit without node preference
     sbatch $new_script
