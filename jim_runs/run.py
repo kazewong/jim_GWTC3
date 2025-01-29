@@ -308,17 +308,16 @@ def run_pe(args: argparse.Namespace,
     plt.tight_layout()
     plt.savefig(f"{args.outdir}/{args.event_id}/training.jpg")
 
-    labels = jim.prior.parameter_names
     # Plot all chains
     n_dim = chains.shape[-1]
     chains_downsample = chains.reshape(-1, n_dim)
     chains_downsample = chains_downsample[::5]
-    figure = corner.corner(chains_downsample, labels=labels)
+    figure = corner.corner(chains_downsample)
     figure.suptitle("Visualize samples")
     plt.savefig(f"{args.outdir}/{args.event_id}/chains_training.jpg")
 
     # Plot Nf samples
-    figure = corner.corner(nf_samples, labels=labels)
+    figure = corner.corner(nf_samples)
     figure.suptitle("Visualize NF samples")
     plt.savefig(f"{args.outdir}/{args.event_id}/nf_samples.jpg")
 
