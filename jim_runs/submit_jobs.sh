@@ -1,5 +1,22 @@
 #!/bin/bash
 
+# Define usage
+usage() {
+    echo "Usage: $0 [-n] (use -n to enable node preference for a/c nodes)"
+    exit 1
+}
+
+# Default to no node preference
+USE_NODE_PREFERENCE=false
+
+# Parse command line options
+while getopts "n" opt; do
+    case $opt in
+        n) USE_NODE_PREFERENCE=true ;;
+        ?) usage ;;
+    esac
+done
+
 # Define the path to the template script
 template_file="template.sh"
 
@@ -19,7 +36,6 @@ do
   
   # Check if the result directory contains any files
   if [ -d "$result_dir" ] && [ "$(find "$result_dir" -type f | wc -l)" -gt 0 ]; then
-    echo "Result already exists for $gw_id, skipping submission."
     continue
   fi
   
@@ -32,9 +48,25 @@ do
 
   # Make the script executable
   chmod +x $new_script
-  
-  # Submit the job to SLURM
-  sbatch $new_script
-  
-  echo "Submitted job for $gw_id"
+
+  if [ "$USE_NODE_PREFERENCE" = true ]; then
+    # Find available a or c node
+    AVAILABLE_NODE=$(sinfo -h -t idle -o "%n" | grep -E '^(a|c)' | head -n1)
+    
+    # Submit the job to SLURM with node preference
+    if [ -n "$AVAILABLE_NODE" ]; then
+      sbatch --nodelist=$AVAILABLE_NODE $new_script
+      echo "Submitted job for $gw_id on node $AVAILABLE_NODE"
+    else
+      sbatch $new_script
+      echo "Submitted job for $gw_id on any available node (no a/c nodes available)"
+    fi
+
+    # Wait for 5 seconds before submitting the next job
+    sleep 5
+  else
+    # Submit without node preference
+    sbatch $new_script
+    echo "Submitted job for $gw_id without node preference"
+  fi
 done

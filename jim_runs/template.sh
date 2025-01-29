@@ -17,12 +17,3 @@ nvidia-smi
 
 # Run the script
 python /home/user/ckng/project/jim_GWTC3/jim_runs/run.py --event-id $GW_ID --outdir /home/user/ckng/project/jim_GWTC3/jim_runs/outdir
-
-# Check if the script produced any results
-if [ "$(find /home/user/ckng/project/jim_GWTC3/jim_runs/outdir/$GW_ID -type f | wc -l)" -gt 0 ]; then
-  echo "Job completed successfully for $GW_ID"
-else
-  echo "Job failed for $GW_ID"
-  # Resubmit the job with specific node list
-  sbatch --nodelist=a[1-10],c[1-10] /home/user/ckng/project/jim_GWTC3/jim_runs/slurm_scripts/submit_${GW_ID}.sh
-fi
