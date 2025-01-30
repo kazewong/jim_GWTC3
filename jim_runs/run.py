@@ -260,7 +260,7 @@ def run_pe(args: argparse.Namespace,
         # strategies=[Adam_optimizer,"default"],
     )
 
-    rng_key = jax.random.PRNGKey(12345)
+    rng_key = jax.random.PRNGKey(1234)
     jim.sample(rng_key)
     jim.print_summary()
     
