@@ -8,43 +8,43 @@ GW170729,good,
 GW170809,good,
 GW170814,good,
 GW170818,good,
-GW170823,good,
-GW190408_181802,good,
-GW190412,ok,extrinsic
+GW170823,bad,mode collapse
+GW190408_181802,ok,extrinsic weighting
+GW190412,good,
 GW190413_052954,good,
 GW190413_134308,good,
 GW190421_213856,good,
 GW190503_185404,good,
 GW190512_180714,good,
 GW190513_205428,good,
-GW190517_055101,tragic,extrinsic weighting
-GW190519_153544,ok,extrinsic weighting
-GW190521,ok,extrinsic weighting
-GW190521_074359,good,
+GW190517_055101,ok,extrinsic weighting
+GW190519_153544,bad,mode collapse
+GW190521,good,
+GW190521_074359,ok,extrinsic weighting
 GW190527_092055,good,
 GW190602_175927,good,
 GW190620_030421,good,
-GW190630_185205,ok,iota weighting
+GW190630_185205,ok,mode collapse
 GW190701_203306,good,
 GW190706_222641,good,
 GW190707_093326,ok,extrinsic weighting
 GW190708_232457,good,
-GW190719_215514,ok,extra mode
+GW190719_215514,good,
 GW190720_000836,good,
 GW190725_174728,good,
-GW190727_060333,bad,iota weighting
+GW190727_060333,bad, mode collapse
 GW190728_064510,good,
 GW190731_140936,good,
 GW190803_022701,good,
 GW190805_211137,good,
-GW190814,ok,mass
+GW190814,tragic,opposite mode
 GW190828_063405,good,
 GW190828_065509,good,
 GW190910_112807,good,
 GW190915_235702,good,
-GW190917_114630,bad,mass ratio
+GW190917_114630,ok,mass ratio & spin
 GW190924_021846,good,
-GW190925_232845,good,
+GW190925_232845,ok,extrinsic weighting
 GW190929_012149,good,
 GW190930_133541,good,
 GW191103_012549,good,
@@ -52,12 +52,12 @@ GW191105_143521,good,
 GW191109_010717,tragic,all parameters
 GW191127_050227,good,
 GW191129_134029,good,
-GW191204_171526,bad,extrinsic weighting
-GW191215_223052,good,
+GW191204_171526,ok,extrinsic weighting
+GW191215_223052,ok,extrinsic weighting
 GW191216_213338,good,
 GW191222_033537,good,
 GW191230_180458,good,
-GW200112_155838,bad,extrinsic weighting
+GW200112_155838,ok,extrinsic weighting
 GW200128_022011,good,
 GW200129_065458,good,
 GW200202_154313,good,
