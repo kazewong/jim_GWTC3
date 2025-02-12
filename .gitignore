@@ -1,4 +1,3 @@
-*ipynb
 outdir/
 *.ipynb_checkpoints/
 __pycache__/
