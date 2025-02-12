@@ -20,7 +20,7 @@ from jimgw.prior import (
     SinePrior,
     PowerLawPrior,
     UniformSpherePrior,
-    UniformPeriodicPrior,
+    RayleighPrior,
 )
 from jimgw.transforms import PeriodicTransform
 from jimgw.single_event.detector import H1, L1, V1, GroundBased2G
@@ -160,9 +160,9 @@ def run_pe(args: argparse.Namespace,
     # Extrinsic prior
     dL_prior = PowerLawPrior(1.0, dL_upper, 2.0, parameter_names=["d_L"])
     t_c_prior = UniformPrior(-0.1, 0.1, parameter_names=["t_c"])
-    phase_c_prior = UniformPeriodicPrior(0.0, 2 * jnp.pi, parameter_names=["phase_c"])
-    psi_prior = UniformPeriodicPrior(0.0, jnp.pi, parameter_names=["psi"])
-    ra_prior = UniformPeriodicPrior(0.0, 2 * jnp.pi, parameter_names=["ra"])
+    phase_c_prior = UniformPrior(0.0, 2 * jnp.pi, parameter_names=["phase_c"])
+    psi_prior = UniformPrior(0.0, jnp.pi, parameter_names=["psi"])
+    ra_prior = UniformPrior(0.0, 2 * jnp.pi, parameter_names=["ra"])
     dec_prior = CosinePrior(parameter_names=["dec"])
 
     prior = prior + [
@@ -172,6 +172,21 @@ def run_pe(args: argparse.Namespace,
         psi_prior,
         ra_prior,
         dec_prior,
+    ]
+
+    # Extra prior for periodic parameters
+    r_1_prior = RayleighPrior(parameter_names=["periodic_1"])
+    r_2_prior = RayleighPrior(parameter_names=["periodic_2"])
+    r_3_prior = RayleighPrior(parameter_names=["periodic_3"])
+    r_4_prior = RayleighPrior(parameter_names=["periodic_4"])
+    r_5_prior = RayleighPrior(parameter_names=["periodic_5"])
+
+    prior = prior + [
+        r_1_prior,
+        r_2_prior,
+        r_3_prior,
+        r_4_prior,
+        r_5_prior,
     ]
 
     prior = CombinePrior(prior)
@@ -185,17 +200,17 @@ def run_pe(args: argparse.Namespace,
         SkyFrameToDetectorFrameSkyPositionTransform(gps_time=gps, ifos=ifos),
         BoundToUnbound(name_mapping = (["M_c"], ["M_c_unbounded"]), original_lower_bound=Mc_lower, original_upper_bound=Mc_upper),
         BoundToUnbound(name_mapping = (["q"], ["q_unbounded"]), original_lower_bound=q_min, original_upper_bound=q_max),
-        PeriodicTransform(name_mapping = (["s1_phi_base_r", "s1_phi"], ["s1_phi_base_x", "s1_phi_base_y"]), xmin=0.0, xmax=2 * jnp.pi),
-        PeriodicTransform(name_mapping = (["s2_phi_base_r", "s2_phi"], ["s2_phi_base_x", "s2_phi_base_y"]), xmin=0.0, xmax=2 * jnp.pi),
+        PeriodicTransform(name_mapping = (["periodic_1", "s1_phi"], ["s1_phi_base_x", "s1_phi_base_y"]), xmin=0.0, xmax=2 * jnp.pi),
+        PeriodicTransform(name_mapping = (["periodic_2", "s2_phi"], ["s2_phi_base_x", "s2_phi_base_y"]), xmin=0.0, xmax=2 * jnp.pi),
         BoundToUnbound(name_mapping = (["iota"], ["iota_unbounded"]) , original_lower_bound=0.0, original_upper_bound=jnp.pi),
         BoundToUnbound(name_mapping = (["s1_theta"], ["s1_theta_unbounded"]) , original_lower_bound=0.0, original_upper_bound=jnp.pi),
         BoundToUnbound(name_mapping = (["s2_theta"], ["s2_theta_unbounded"]) , original_lower_bound=0.0, original_upper_bound=jnp.pi),
         BoundToUnbound(name_mapping = (["s1_mag"], ["s1_mag_unbounded"]) , original_lower_bound=0.0, original_upper_bound=0.99),
         BoundToUnbound(name_mapping = (["s2_mag"], ["s2_mag_unbounded"]) , original_lower_bound=0.0, original_upper_bound=0.99),
-        PeriodicTransform(name_mapping = (["psi_base_r", "psi"], ["psi_base_x", "psi_base_y"]), xmin=0.0, xmax=jnp.pi),
-        PeriodicTransform(name_mapping = (["phase_c_base_r", "phase_det"], ["phase_det_x", "phase_det_y"]), xmin=0.0, xmax=2 * jnp.pi),
+        PeriodicTransform(name_mapping = (["periodic_3", "psi"], ["psi_base_x", "psi_base_y"]), xmin=0.0, xmax=jnp.pi),
+        PeriodicTransform(name_mapping = (["periodic_4", "phase_det"], ["phase_det_x", "phase_det_y"]), xmin=0.0, xmax=2 * jnp.pi),
         BoundToUnbound(name_mapping = (["zenith"], ["zenith_unbounded"]), original_lower_bound=0.0, original_upper_bound=jnp.pi),
-        PeriodicTransform(name_mapping = (["ra_base_r", "azimuth"], ["azimuth_x", "azimuth_y"]), xmin=0.0, xmax=2 * jnp.pi),
+        PeriodicTransform(name_mapping = (["periodic_5", "azimuth"], ["azimuth_x", "azimuth_y"]), xmin=0.0, xmax=2 * jnp.pi),
     ]
 
     likelihood_transforms = [
