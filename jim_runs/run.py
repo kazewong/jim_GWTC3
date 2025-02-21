@@ -70,7 +70,7 @@ def run_pe(args: argparse.Namespace,
         print("metadata:")
         print(data_dump.meta_data)
     
-    duration = float(data_dump.meta_data['command_line_args']['duration'])
+    duration = float(data_dump.interferometers[0].strain_data.time_array[-1] - data_dump.interferometers[0].strain_data.time_array[0])
     post_trigger = float(data_dump.meta_data['command_line_args']['post_trigger_duration'])
     gps = float(data_dump.trigger_time)
     fmin: dict[str, float] = data_dump.meta_data['command_line_args']['minimum_frequency']
