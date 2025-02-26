@@ -247,10 +247,9 @@ def run_pe(args: argparse.Namespace,
     n_epochs = 10
     total_epochs = n_epochs * n_loop_training
     start = total_epochs // 10
-    # learning_rate = optax.polynomial_schedule(
-    #     1e-3, 1e-4, 4.0, total_epochs - start, transition_begin=start
-    # )
-    learning_rate = 1e-3
+    learning_rate = optax.polynomial_schedule(
+        1e-3, 1e-4, 4.0, total_epochs - start, transition_begin=start
+    )
 
     jim = Jim(
         likelihood,
