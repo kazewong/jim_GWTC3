@@ -35,8 +35,6 @@ from jimgw.single_event.transforms import (
     GeocentricArrivalTimeToDetectorArrivalTimeTransform,
     GeocentricArrivalPhaseToDetectorArrivalPhaseTransform,
 )
-# from jimgw.single_event.utils import Mc_q_to_m1_m2
-# from flowMC.strategy.optimization import optimization_Adam
 
 jax.config.update("jax_enable_x64", True)
 
