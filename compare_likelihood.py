@@ -38,7 +38,7 @@ if not os.path.exists("likelihood_comparison.pkl"):
         fmax: dict[str, float] = data_dump.meta_data['command_line_args']['maximum_frequency']
 
         try:
-            fmin = float(np.min(list(ast.literal_eval(fmin).values())))
+            fmin = float(np.max(list(ast.literal_eval(fmin).values())))
         except AttributeError:
             fmin = float(fmin)
         try:
