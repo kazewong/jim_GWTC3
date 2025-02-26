@@ -79,7 +79,7 @@ if not os.path.exists("likelihood_comparison.pkl"):
         waveform_arguments = dict(
             waveform_approximant="IMRPhenomPv2",
             reference_frequency=data_dump.meta_data['command_line_args']['reference_frequency'],
-            minimum_frequency=fmin,
+            minimum_frequency=float(np.min(list(ast.literal_eval(data_dump.meta_data['command_line_args']['minimum_frequency']).values()))),
         )
 
         waveform_generator = WaveformGenerator(
