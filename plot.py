@@ -14,6 +14,8 @@ events = csv['Event'].values
 for event in events:
     try:
         if not os.path.exists(f'figures/{event}.jpg'):
+            print(f'Plotting {event}')
+
             result_jim = jnp.load(f'jim_runs/outdir/{event}/samples.npz')
             n_samples = 5000
 
@@ -22,6 +24,8 @@ for event in events:
             samples_jim = []
             for key in keys:
                 samples_jim.append(result_jim[key])
+            log_prob = jnp.load(f'jim_runs/outdir/{event}/result.npz')['log_prob'].reshape(-1)
+            samples_jim.append(log_prob)
             samples_jim = np.array(samples_jim).T
             samples_jim = samples_jim[np.random.choice(samples_jim.shape[0], n_samples), :]
 
@@ -30,7 +34,6 @@ for event in events:
                 print(f'Error: {event} does not have a unique result file')
                 continue
             else:
-                print(f'Plotting {event}')
                 file = files[0]
             result_bilby = CBCResult.from_hdf5(f'{outdir}/{event}/final_result/{file}')
             trigger_time = float(result_bilby.meta_data['command_line_args']['trigger_time'])
@@ -50,8 +53,10 @@ for event in events:
                 key = key.replace('s1_mag', 'a_1')
                 key = key.replace('s2_mag', 'a_2')
                 samples_bilby.append(result_bilby[key].values)
+            samples_bilby.append(result_bilby['log_likelihood'].values + result_bilby['log_prior'].values)
             samples_bilby = np.array(samples_bilby).T
 
+            keys.append('log_prob')
             fig = corner(samples_jim, labels=keys, color='blue', hist_kwargs={'density': True})
             corner(samples_bilby, labels=keys, fig=fig, color='red', hist_kwargs={'density': True})
 
