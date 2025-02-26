@@ -19,24 +19,26 @@ from jimgw.prior import (
     CosinePrior,
     SinePrior,
     PowerLawPrior,
-    UniformSpherePrior,
     RayleighPrior,
 )
 from jimgw.transforms import PeriodicTransform
 from jimgw.single_event.detector import H1, L1, V1, GroundBased2G
-from jimgw.single_event.likelihood import TransientLikelihoodFD, HeterodynedTransientLikelihoodFD
+from jimgw.single_event.likelihood import (
+    # TransientLikelihoodFD,
+    HeterodynedTransientLikelihoodFD,
+)
 from jimgw.single_event.waveform import RippleIMRPhenomPv2
-from jimgw.transforms import BoundToUnbound
+from jimgw.transforms import BoundToUnbound, reverse_bijective_transform
 from jimgw.single_event.transforms import (
     SkyFrameToDetectorFrameSkyPositionTransform,
-    SphereSpinToCartesianSpinTransform,
+    # SphereSpinToCartesianSpinTransform,
     MassRatioToSymmetricMassRatioTransform,
     DistanceToSNRWeightedDistanceTransform,
     GeocentricArrivalTimeToDetectorArrivalTimeTransform,
-    GeocentricArrivalPhaseToDetectorArrivalPhaseTransform,
+    # GeocentricArrivalPhaseToDetectorArrivalPhaseTransform,
+    SpinAnglesToCartesianSpinTransform,
+
 )
-# from jimgw.single_event.utils import Mc_q_to_m1_m2
-# from flowMC.strategy.optimization import optimization_Adam
 
 jax.config.update("jax_enable_x64", True)
 
@@ -131,7 +133,8 @@ def run_pe(args: argparse.Namespace,
         print(f"GPS: {gps}")
         print(f"Chirp mass: [{Mc_lower}, {Mc_upper}]")
     
-    waveform = RippleIMRPhenomPv2(f_ref=float(data_dump.meta_data['command_line_args']['reference_frequency']))
+    f_ref = float(data_dump.meta_data['command_line_args']['reference_frequency'])
+    waveform = RippleIMRPhenomPv2(f_ref=f_ref)
 
     ###########################################
     ########## Set up priors ##################
@@ -147,14 +150,22 @@ def run_pe(args: argparse.Namespace,
     prior = prior + [Mc_prior, q_prior]
 
     # Spin prior
-    s1_prior = UniformSpherePrior(parameter_names=["s1"])
-    s2_prior = UniformSpherePrior(parameter_names=["s2"])
-    iota_prior = SinePrior(parameter_names=["iota"])
+    theta_jn_prior = SinePrior(parameter_names=["theta_jn"])
+    phi_jl_prior = UniformPrior(0.0, 2 * jnp.pi, parameter_names=["phi_jl"])
+    tilt_1_prior = SinePrior(parameter_names=["tilt_1"])
+    tilt_2_prior = SinePrior(parameter_names=["tilt_2"])
+    phi_12_prior = UniformPrior(0.0, 2 * jnp.pi, parameter_names=["phi_12"])
+    a_1_prior = UniformPrior(0.0, 0.99, parameter_names=["a_1"])
+    a_2_prior = UniformPrior(0.0, 0.99, parameter_names=["a_2"])
 
     prior = prior + [
-        s1_prior,
-        s2_prior,
-        iota_prior,
+        theta_jn_prior,
+        phi_jl_prior,
+        tilt_1_prior,
+        tilt_2_prior,
+        phi_12_prior,
+        a_1_prior,
+        a_2_prior,
     ]
 
     # Extrinsic prior
@@ -175,11 +186,11 @@ def run_pe(args: argparse.Namespace,
     ]
 
     # Extra prior for periodic parameters
-    r_1_prior = RayleighPrior(parameter_names=["periodic_1"])
-    r_2_prior = RayleighPrior(parameter_names=["periodic_2"])
-    r_3_prior = RayleighPrior(parameter_names=["periodic_3"])
-    r_4_prior = RayleighPrior(parameter_names=["periodic_4"])
-    r_5_prior = RayleighPrior(parameter_names=["periodic_5"])
+    r_1_prior = RayleighPrior(1.0, parameter_names=["r_1"])
+    r_2_prior = RayleighPrior(1.0, parameter_names=["r_2"])
+    r_3_prior = RayleighPrior(1.0, parameter_names=["r_3"])
+    r_4_prior = RayleighPrior(1.0, parameter_names=["r_4"])
+    r_5_prior = RayleighPrior(1.0, parameter_names=["r_5"])
 
     prior = prior + [
         r_1_prior,
@@ -194,29 +205,25 @@ def run_pe(args: argparse.Namespace,
     # Defining Transforms
 
     sample_transforms = [
+        SpinAnglesToCartesianSpinTransform(f_ref),
         DistanceToSNRWeightedDistanceTransform(gps_time=gps, ifos=ifos, dL_min=dL_prior.xmin, dL_max=dL_prior.xmax),
-        GeocentricArrivalPhaseToDetectorArrivalPhaseTransform(gps_time=gps, ifo=ifos[0]),
+        reverse_bijective_transform(SpinAnglesToCartesianSpinTransform(f_ref)),
+        # GeocentricArrivalPhaseToDetectorArrivalPhaseTransform(gps_time=gps, ifo=ifos[0]),
         GeocentricArrivalTimeToDetectorArrivalTimeTransform(tc_min=t_c_prior.xmin, tc_max=t_c_prior.xmax, gps_time=gps, ifo=ifos[0]),
         SkyFrameToDetectorFrameSkyPositionTransform(gps_time=gps, ifos=ifos),
         BoundToUnbound(name_mapping = (["M_c"], ["M_c_unbounded"]), original_lower_bound=Mc_lower, original_upper_bound=Mc_upper),
         BoundToUnbound(name_mapping = (["q"], ["q_unbounded"]), original_lower_bound=q_min, original_upper_bound=q_max),
-        PeriodicTransform(name_mapping = (["periodic_1", "s1_phi"], ["s1_phi_base_x", "s1_phi_base_y"]), xmin=0.0, xmax=2 * jnp.pi),
-        PeriodicTransform(name_mapping = (["periodic_2", "s2_phi"], ["s2_phi_base_x", "s2_phi_base_y"]), xmin=0.0, xmax=2 * jnp.pi),
-        BoundToUnbound(name_mapping = (["iota"], ["iota_unbounded"]) , original_lower_bound=0.0, original_upper_bound=jnp.pi),
-        BoundToUnbound(name_mapping = (["s1_theta"], ["s1_theta_unbounded"]) , original_lower_bound=0.0, original_upper_bound=jnp.pi),
-        BoundToUnbound(name_mapping = (["s2_theta"], ["s2_theta_unbounded"]) , original_lower_bound=0.0, original_upper_bound=jnp.pi),
-        BoundToUnbound(name_mapping = (["s1_mag"], ["s1_mag_unbounded"]) , original_lower_bound=0.0, original_upper_bound=0.99),
-        BoundToUnbound(name_mapping = (["s2_mag"], ["s2_mag_unbounded"]) , original_lower_bound=0.0, original_upper_bound=0.99),
-        PeriodicTransform(name_mapping = (["periodic_3", "psi"], ["psi_base_x", "psi_base_y"]), xmin=0.0, xmax=jnp.pi),
-        PeriodicTransform(name_mapping = (["periodic_4", "phase_det"], ["phase_det_x", "phase_det_y"]), xmin=0.0, xmax=2 * jnp.pi),
+        PeriodicTransform(name_mapping = (["r_1", "theta_jn"], ["theta_jn_x", "theta_jn_y"]), xmin=0.0, xmax=jnp.pi),
+        PeriodicTransform(name_mapping = (["r_2", "phi_jl"], ["phi_jl_x", "phi_jl_y"]), xmin=0.0, xmax=2 * jnp.pi),
+        PeriodicTransform(name_mapping = (["r_3", "psi"], ["psi_base_x", "psi_base_y"]), xmin=0.0, xmax=jnp.pi),
+        PeriodicTransform(name_mapping = (["r_4", "phase_c"], ["phase_c_x", "phase_c_y"]), xmin=0.0, xmax=2 * jnp.pi),
         BoundToUnbound(name_mapping = (["zenith"], ["zenith_unbounded"]), original_lower_bound=0.0, original_upper_bound=jnp.pi),
-        PeriodicTransform(name_mapping = (["periodic_5", "azimuth"], ["azimuth_x", "azimuth_y"]), xmin=0.0, xmax=2 * jnp.pi),
+        PeriodicTransform(name_mapping = (["r_5", "azimuth"], ["azimuth_x", "azimuth_y"]), xmin=0.0, xmax=2 * jnp.pi),
     ]
 
     likelihood_transforms = [
+        SpinAnglesToCartesianSpinTransform(f_ref),
         MassRatioToSymmetricMassRatioTransform,
-        SphereSpinToCartesianSpinTransform("s1"),
-        SphereSpinToCartesianSpinTransform("s2"),
     ]
 
     # likelihood = TransientLikelihoodFD(
@@ -247,10 +254,9 @@ def run_pe(args: argparse.Namespace,
     n_epochs = 10
     total_epochs = n_epochs * n_loop_training
     start = total_epochs // 10
-    # learning_rate = optax.polynomial_schedule(
-    #     1e-3, 1e-4, 4.0, total_epochs - start, transition_begin=start
-    # )
-    learning_rate = 1e-3
+    learning_rate = optax.polynomial_schedule(
+        1e-3, 1e-4, 4.0, total_epochs - start, transition_begin=start
+    )
 
     jim = Jim(
         likelihood,
