@@ -247,9 +247,10 @@ def run_pe(args: argparse.Namespace,
     n_epochs = 10
     total_epochs = n_epochs * n_loop_training
     start = total_epochs // 10
-    learning_rate = optax.polynomial_schedule(
-        1e-3, 1e-4, 4.0, total_epochs - start, transition_begin=start
-    )
+    # learning_rate = optax.polynomial_schedule(
+    #     1e-3, 1e-4, 4.0, total_epochs - start, transition_begin=start
+    # )
+    learning_rate = 1e-3
 
     jim = Jim(
         likelihood,
@@ -282,6 +283,8 @@ def run_pe(args: argparse.Namespace,
     # Postprocessing comes here
     samples = jim.get_samples()
     jnp.savez(os.path.join(args.outdir, args.event_id, "samples.npz"), **samples)
+    result = jim.sampler.get_sampler_state(training=False)
+    jnp.savez(os.path.join(args.outdir, args.event_id, "result.npz"), **result)
 
     total_time_end = time.time()
     print(f"Time taken: {total_time_end - total_time_start} seconds = {(total_time_end - total_time_start) / 60} minutes")
