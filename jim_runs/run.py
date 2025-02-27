@@ -173,11 +173,11 @@ def run_pe(args: argparse.Namespace,
     ]
 
     # Extra prior for periodic parameters
-    r_1_prior = RayleighPrior(parameter_names=["periodic_1"])
-    r_2_prior = RayleighPrior(parameter_names=["periodic_2"])
-    r_3_prior = RayleighPrior(parameter_names=["periodic_3"])
-    r_4_prior = RayleighPrior(parameter_names=["periodic_4"])
-    r_5_prior = RayleighPrior(parameter_names=["periodic_5"])
+    r_1_prior = RayleighPrior(1.0, parameter_names=["periodic_1"])
+    r_2_prior = RayleighPrior(1.0, parameter_names=["periodic_2"])
+    r_3_prior = RayleighPrior(1.0, parameter_names=["periodic_3"])
+    r_4_prior = RayleighPrior(1.0, parameter_names=["periodic_4"])
+    r_5_prior = RayleighPrior(1.0, parameter_names=["periodic_5"])
 
     prior = prior + [
         r_1_prior,
