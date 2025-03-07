@@ -21,3 +21,4 @@ slurm_scripts/
 logs/
 *.lock
 *.pkl
+
