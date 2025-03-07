@@ -13,3 +13,11 @@ src/tex/figures/*
 # Miscellaneous
 __pycache__
 *.synctex.gz
+
+outdir/
+*.ipynb_checkpoints/
+__pycache__/
+slurm_scripts/
+logs/
+*.lock
+*.pkl

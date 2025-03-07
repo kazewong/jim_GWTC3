@@ -1,0 +1,10 @@
+[project]
+name = "jim-gwtc3"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pulp<2.8",
+    "showyourwork>=0.4.3",
+]
